@@ -10,13 +10,13 @@ Confirm the following programs are installed on your system:
 
 First, parse MIDI file into onehot text file:
 ```
-python3 -c "import midi_parser; midi_parser.midi_to_onehot('filename.mid')"
+python3 -c "import midi_parser; midi_parser.midi_to_onehot('yourfile.mid')"
 ```
 Then feed it into RNN:
 ```
-python3 -c "import rnn; rnn.training('onehot.txt')"
+python3 -c "import rnn; rnn.training('yourfile.txt')"
 ```
 When the training is done, turn the result into MIDI file using:
 ```
-python3 -c "import midi_parser; midi_parser.onehot_to_midi('result.txt')"
+python3 -c "import midi_parser; midi_parser.onehot_to_midi('yourfile.txt')"
 ```

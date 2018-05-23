@@ -57,7 +57,7 @@ def midi_to_onehot(fp):
             if note_list[i][0] == note_list[i-1][0] and note_list[i][0] != note_list[i+1][0]:
                 notes.append([0, 0])
         
-    output_name = 'onehot_' + fp +'.txt'
+    output_name = fp +'.txt'
     with open(output_name, 'w') as f:
         for i in notes:
             f.write("%s\n" % i)
