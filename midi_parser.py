@@ -1,4 +1,3 @@
-
 import numpy as np
 import midi
 
@@ -62,4 +61,3 @@ def parse(fp):
         for i in notes:
             f.write("%s\n" % i)
     print("The result of parsing has been saved into %s." % output_name)
-
