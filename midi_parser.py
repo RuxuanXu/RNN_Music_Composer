@@ -2,7 +2,7 @@
 import numpy as np
 import midi
 
-def midi_to_onehot(fp):
+def parse(fp):
     
     pitch_list = []
     duration_list = []
