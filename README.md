@@ -14,7 +14,7 @@ python3 -c "import midi_parser; midi_parser.parse('yourfile.mid')"
 ```
 Then feed it into RNN:
 ```
-python3 -c "import rnn; rnn.training('yourfile.txt')"
+python3 -c "import rnn; rnn.train('yourfile.txt')"
 ```
 When the training is done, turn the result into MIDI file using:
 ```

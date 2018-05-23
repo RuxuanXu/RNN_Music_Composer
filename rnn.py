@@ -3,7 +3,7 @@ import numpy as np
 import tensorflow as tf
 import random
 
-def training(fp):
+def train(fp):
 
     #Training setting
     hidden_size   = 100
