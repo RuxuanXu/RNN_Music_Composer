@@ -1,6 +1,6 @@
 import numpy as np
 import midi
-from file_manager import createDir, readDir
+from file_manager import createDir, readDir, getName
 
 def parse(dir):
 
@@ -68,7 +68,7 @@ def parse_file(fp):
 
     createDir('./data/')
         
-    output_name = fp +'.txt'
+    output_name = getName(fp) +'.txt'
     with open('./data/' + output_name, 'w') as f:
         for i in notes:
             f.write("%s\n" % i)

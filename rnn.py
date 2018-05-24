@@ -8,7 +8,7 @@ def train():
     #Training setting
     hidden_size   = 100
     seq_len = 20
-    gen_len = 1600
+    gen_len = 200
     iteration_times = 20001
     output_freq = 500
     initial_learning_rate = 0.1

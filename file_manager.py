@@ -15,3 +15,6 @@ def readDir(di):
         print('Error: There is no file in directory ' + di)
         return 0
     return training_data
+
+def getName(fp):
+    return os.path.basename(fp)
