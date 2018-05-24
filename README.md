@@ -6,15 +6,14 @@ Confirm the following programs are installed on your system:
 * [Python3](https://www.python.org/downloads/)
 * [Tensorflow](https://www.tensorflow.org/install/)
 * [numpy](http://www.numpy.org/) 
-* [python-midi](https://github.com/vishnubob/python-midi/)(install feature/python3 branch)
+* [python-midi](https://github.com/vishnubob/python-midi/) (install feature/python3 branch)
 
 First, parse MIDI file into text file.
-Parse one file at once:
 ```bash
+# Parse one file at once:
 $ py -c "import midi_parser; midi_parser.parse_file('yourfile.mid')"
-```
-Or parse multiple files at once:
-```bash
+
+#Or parse multiple files at once:
 $ py -c "import midi_parser; midi_parser.parse('./yourfolder/*.mid')"
 ```
 Then feed the data into RNN:
