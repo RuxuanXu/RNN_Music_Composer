@@ -1,9 +1,9 @@
-import os
 import numpy as np
 import tensorflow as tf
 import random
+from file_manager import createDir, readDir
 
-def train(fp):
+def train():
 
     #Training setting
     hidden_size   = 100
@@ -17,12 +17,18 @@ def train(fp):
 
     #Read training data
     data = []
-    fi = open(fp, 'r')
-    for li in fi:
-        li = li.replace("[","")
-        li = li.replace("]","")
-        note = li.split(',')
-        data.append((int(note[0]),int(note[1])))
+    path = './data/*.txt'
+    training_data = readDir(path)
+    if training_data==0:
+        return 0
+
+    for fi in training_data:
+        fi = open(fi, 'r')
+        for li in fi:
+            li = li.replace("[","")
+            li = li.replace("]","")
+            note = li.split(',')
+            data.append((int(note[0]),int(note[1])))
 
     note_list = sorted(list(set(data)), key = lambda data: (data[0], data[1]))
 
@@ -121,10 +127,3 @@ def train(fp):
     
         iteration += 1
         para += seq_len
-        
-def createDir(directory):
-    try:
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-    except OSError:
-        print ('Error: Failed to create directory ' +  directory)

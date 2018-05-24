@@ -1,8 +1,18 @@
 import numpy as np
 import midi
+from file_manager import createDir, readDir
 
-def parse(fp):
+def parse(dir):
+
+    parsing_data = readDir(dir)
+    if parsing_data==0:
+        return 0
     
+    for fp in parsing_data:
+        parse_file(fp)
+
+def parse_file(fp):
+
     pitch_list = []
     duration_list = []
     note_list = []
@@ -11,7 +21,7 @@ def parse(fp):
     time = 0
 
     pattern = midi.read_midifile(fp)
-
+    
     for i in range(len(pattern)):
         track = pattern[i]
         for j in range(len(track)):
@@ -55,9 +65,11 @@ def parse(fp):
             notes.append([p, d])
             if note_list[i][0] == note_list[i-1][0] and note_list[i][0] != note_list[i+1][0]:
                 notes.append([0, 0])
+
+    createDir('./data/')
         
     output_name = fp +'.txt'
-    with open(output_name, 'w') as f:
+    with open('./data/' + output_name, 'w') as f:
         for i in notes:
             f.write("%s\n" % i)
-    print("The result of parsing has been saved into %s." % output_name)
+    print("The result of parsing has been saved into %s." % 'data/' + output_name)

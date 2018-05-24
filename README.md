@@ -10,13 +10,16 @@ Confirm the following programs are installed on your system:
 
 First, parse MIDI file into text file:
 ```
-python3 -c "import midi_parser; midi_parser.parse('yourfile.mid')"
+//Parse one file at once
+py -c "import midi_parser; midi_parser.parse_file('yourfile.mid')"
+//Or parse multiple files at once
+py -c "import midi_parser; midi_parser.parse('./yourfolder/*.mid')"
 ```
-Then feed it into RNN:
+Then feed the data into RNN:
 ```
-python3 -c "import rnn; rnn.train('yourfile.txt')"
+py -c "import rnn; rnn.train()"
 ```
-When the training is done, turn the result into MIDI file using:
+When the training is done, convert the result into MIDI file using:
 ```
-python3 -c "import midi_parser; midi_parser.create_midi('yourfile.txt')"
+py -c "import midi_parser; midi_parser.create_midi('yourfile.txt')"
 ```
