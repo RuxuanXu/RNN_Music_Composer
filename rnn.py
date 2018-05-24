@@ -119,7 +119,7 @@ def train():
             #Output results
             print(('iteration: %d, loss: %f' % (iteration, loss_val)))
 
-            temp = ''.join(str(note_by_id[note]) for note in notes)
+            temp = '\n'.join(str(note_by_id[note]) for note in notes)
             output_name = str(iteration) +'.txt'
             with open('./output/' + output_name, 'w') as f:
                 f.write('iteration: %d, loss: %f\n' % (iteration, loss_val))

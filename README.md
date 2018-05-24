@@ -12,7 +12,7 @@ First, parse MIDI file into text file.
 ```bash
 # Parse one file at once
 $ py -c "import midi_parser; midi_parser.parse_file('yourfile.mid')"
-# Or parse multiple files at once
+# Parse multiple files at once
 $ py -c "import midi_parser; midi_parser.parse('./yourfolder/*.mid')"
 ```
 Then feed the data into RNN:

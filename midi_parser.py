@@ -73,3 +73,66 @@ def parse_file(fp):
         for i in notes:
             f.write("%s\n" % i)
     print("The result of parsing has been saved into %s." % 'data/' + output_name)
+
+def create_midi(fp):
+
+    volumn = 50
+
+    data = []
+    fp = open(fp, 'r')
+    lines = fp.readlines()[2:]
+    for li in lines:
+        li = li.replace("(","")
+        li = li.replace(")"," ")
+        note = li.split(',')
+        data.append([int(note[0]),int(note[1])])
+
+    pattern = midi.Pattern()
+    track = midi.Track()
+    pattern.append(track)
+    
+    tick = 0
+    data_iter=data.__iter__()
+
+    while True:
+        try:
+            i = data_iter.__next__()
+        except StopIteration:
+            break
+        if i[0]==0 and i[1]==0:
+            chords = []
+            try:
+                i = data_iter.__next__()
+            except StopIteration:
+                break
+            temp = i
+
+            while i[0]!=0 or i[1]!=0:
+                chords.append(i)
+                try:
+                    i = data_iter.__next__()
+                except StopIteration:
+                    break
+
+            chords = sorted(chords, key=lambda x : x[1]) 
+
+            for n in chords:
+                on = midi.NoteOnEvent(tick = 0, velocity=volumn, pitch=n[0])
+                track.append(on)
+            
+            prev = 0
+            for n in chords:
+                off = midi.NoteOffEvent(tick = n[1]-prev, pitch=n[0])
+                track.append(off)
+                prev = n[1]
+
+        else:                
+            on = midi.NoteOnEvent(tick = 0,velocity=volumn, pitch=i[0])
+            track.append(on)
+            off = midi.NoteOffEvent(tick = i[1], pitch=i[0])
+            track.append(off)
+
+    eot = midi.EndOfTrackEvent(tick=1)
+    track.append(eot)
+    print(str(pattern))
+    midi.write_midifile("{}.mid".format(fp.name), pattern)
