@@ -10,10 +10,9 @@ Confirm the following programs are installed on your system:
 
 First, parse MIDI file into text file.
 ```bash
-# Parse one file at once:
+# Parse one file at once
 $ py -c "import midi_parser; midi_parser.parse_file('yourfile.mid')"
-
-#Or parse multiple files at once:
+# Or parse multiple files at once
 $ py -c "import midi_parser; midi_parser.parse('./yourfolder/*.mid')"
 ```
 Then feed the data into RNN:
