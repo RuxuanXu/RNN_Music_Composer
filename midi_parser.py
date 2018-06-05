@@ -33,7 +33,7 @@ def parse_file(fp):
                 if isinstance(event, midi.NoteOffEvent) or event.velocity == 0:
                     if noteon_list[event.pitch] != -1:
                         duration = time - noteon_list[event.pitch]
-                        duration_list.append(duration)
+                        if duration: duration_list.append(duration)
                         #append [time, pitch, duration]
                         note_list.append([noteon_list[event.pitch], event.pitch, duration])
 
@@ -53,23 +53,23 @@ def parse_file(fp):
 
         if i == 0:
             if note_list[i][0] == note_list[i+1][0]:
-                notes.append([0, 0])
+                notes.append([0, -1])
             notes.append([p, d])
         elif i == len(note_list)-1:
             notes.append([p, d])
             if(note_list[i][0] == note_list[i-1][0]):
-                notes.append([0, 0])
+                notes.append([0, -2])
         else:
             if note_list[i][0] == note_list[i+1][0] and note_list[i][0] != note_list[i-1][0]:
-                notes.append([0, 0])
+                notes.append([0, -1])
             notes.append([p, d])
             if note_list[i][0] == note_list[i-1][0] and note_list[i][0] != note_list[i+1][0]:
-                notes.append([0, 0])
+                notes.append([0, -2])
 
-    #set most common duration to 200
-    standard = np.bincount(duration_list).argmax()
-    for i in range(len(notes)):
-        notes[i][1] = int(notes[i][1]/standard * 200)
+    #set most common duration to 100
+    #standard = np.bincount(duration_list).argmax()
+    #for i in range(len(notes)):
+    #    notes[i][1] = int(notes[i][1]/standard * 100)
 
     createDir('./data/')
         
@@ -104,7 +104,7 @@ def create_midi(fp):
             i = data_iter.__next__()
         except StopIteration:
             break
-        if i[0]==0 and i[1]==0:
+        if i[1]==-1:
             chords = []
             try:
                 i = data_iter.__next__()
@@ -112,8 +112,13 @@ def create_midi(fp):
                 break
             temp = i
 
-            while i[0]!=0 or i[1]!=0:
-                chords.append(i)
+            while i[1]!=-2:
+                while i[1]==-1:
+                    try:
+                        i = data_iter.__next__()
+                    except StopIteration:
+                        break
+                if i[1]!=-2: chords.append(i)
                 try:
                     i = data_iter.__next__()
                 except StopIteration:
@@ -131,11 +136,12 @@ def create_midi(fp):
                 track.append(off)
                 prev = n[1]
 
-        else:                
-            on = midi.NoteOnEvent(tick = 0,velocity=volumn, pitch=i[0])
-            track.append(on)
-            off = midi.NoteOffEvent(tick = i[1], pitch=i[0])
-            track.append(off)
+        else:
+            if i[0]!=0:
+                on = midi.NoteOnEvent(tick = 0,velocity=volumn, pitch=i[0])
+                track.append(on)
+                off = midi.NoteOffEvent(tick = i[1], pitch=i[0])
+                track.append(off)
 
     eot = midi.EndOfTrackEvent(tick=1)
     track.append(eot)
