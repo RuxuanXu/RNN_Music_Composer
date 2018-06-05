@@ -8,12 +8,12 @@ def train():
     #Training setting
     hidden_size   = 100
     seq_len = 20
-    gen_len = 200
-    iteration_times = 20001
+    gen_len = 1000
+    iteration_times = 500001
     output_freq = 500
     initial_learning_rate = 0.1
     decay_steps = 1000
-    decay_rate = 0.9
+    decay_rate = 0.96
 
     #Read training data
     data = []
@@ -80,6 +80,9 @@ def train():
     para = 0
     createDir('./output/')
 
+    # Add ops to save and restore all the variables.
+    saver = tf.train.Saver()
+
     ############ TRAINING LOOP ############
     while iteration<iteration_times:
 
@@ -124,6 +127,9 @@ def train():
             with open('./output/' + output_name, 'w') as f:
                 f.write('iteration: %d, loss: %f\n' % (iteration, loss_val))
                 f.write("----\n%s" % temp)
+            
+            # Save the variables to disk.
+            save_path = saver.save(sess, './output/model.ckpt')
     
         iteration += 1
         para += seq_len

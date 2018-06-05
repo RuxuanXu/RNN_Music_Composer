@@ -134,5 +134,5 @@ def create_midi(fp):
 
     eot = midi.EndOfTrackEvent(tick=1)
     track.append(eot)
-    print(str(pattern))
+    print("The result has been saved as %s.mid." % fp.name)
     midi.write_midifile("{}.mid".format(fp.name), pattern)
