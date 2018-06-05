@@ -66,6 +66,11 @@ def parse_file(fp):
             if note_list[i][0] == note_list[i-1][0] and note_list[i][0] != note_list[i+1][0]:
                 notes.append([0, 0])
 
+    #set most common duration to 200
+    standard = np.bincount(duration_list).argmax()
+    for i in range(len(notes)):
+        notes[i][1] = int(notes[i][1]/standard * 200)
+
     createDir('./data/')
         
     output_name = getName(fp) +'.txt'
