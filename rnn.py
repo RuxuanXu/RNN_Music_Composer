@@ -6,12 +6,12 @@ from file_manager import createDir, readDir
 def train():
 
     #Training setting
-    hidden_size   = 100
-    seq_len = 20
+    hidden_size   = 500
+    seq_len = 10
     gen_len = 800
-    iteration_times = 500001
+    iteration_times = 2000001
     output_freq = 500
-    initial_learning_rate = 0.1
+    initial_learning_rate = 0.5
     decay_steps = 1000
     decay_rate = 0.96
 
