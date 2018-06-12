@@ -6,8 +6,8 @@ from file_manager import createDir, readDir
 def train():
 
     #Training setting
-    hidden_size   = 800
-    seq_len = 25
+    hidden_size   = 100
+    seq_len = 20
     gen_len = 800
     iteration_times = 2000001
     output_freq = 1000
