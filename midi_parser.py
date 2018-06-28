@@ -79,7 +79,16 @@ def parse_file(fp):
             f.write("%s\n" % i)
     print("The result of parsing has been saved into %s." % 'data/' + output_name)
 
-def create_midi(fp):
+def create_midi(dir):
+
+    data = readDir(dir)
+    if data==0:
+        return 0
+    
+    for fp in data:
+        create_midi_file(fp)
+
+def create_midi_file(fp):
 
     volumn = 50
 

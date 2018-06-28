@@ -21,5 +21,8 @@ $ py -c "import rnn; rnn.train()"
 ```
 When the training is done, convert the result into MIDI file using:
 ```bash
-$ py -c "import midi_parser; midi_parser.create_midi('yourfile.txt')"
+# Generate one MIDI file at once
+$ py -c "import midi_parser; midi_parser.create_midi_file('yourfile.txt')"
+# Generate multiple MIDI files at once
+$ py -c "import midi_parser; midi_parser.create_midi('./yourfolder/*.txt')"
 ```
