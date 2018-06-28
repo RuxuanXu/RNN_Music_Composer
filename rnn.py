@@ -7,11 +7,11 @@ def train():
 
     #Training setting
     hidden_size   = 100
-    seq_len = 20
+    seq_len = 50
     gen_len = 800
     iteration_times = 2000001
     output_freq = 1000
-    initial_learning_rate = 0.2
+    initial_learning_rate = 0.1
     decay_steps = 1000
     decay_rate = 0.9
 
@@ -120,12 +120,13 @@ def train():
                 seq_note = seq_note[1:] + [note]
             
             #Output results
-            print(('iteration: %d, loss: %f' % (iteration, loss_val)))
+            rate = sess.run(optimizer._learning_rate)
+            print(('iteration: %d, loss: %f, learning rate: %f' % (iteration, loss_val, rate)))
 
             temp = '\n'.join(str(note_by_id[note]) for note in notes)
             output_name = str(iteration) +'.txt'
             with open('./output/' + output_name, 'w') as f:
-                f.write('iteration: %d, loss: %f\n' % (iteration, loss_val))
+                f.write('iteration: %d, loss: %f, learning rate: %f\n' % (iteration, loss_val, rate))
                 f.write("----\n%s" % temp)
             
             # Save the variables to disk.
